@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relaciones
+  events        Event[]
+  registrations Registration[]
+
+  @@map("users")
+}
+
+model Event {
+  id              Int      @id @default(autoincrement())
+  title           String // Antes: nombre
+  description     String? // Antes: descripcion
+  date            DateTime // Antes: fecha
+  location        String? // Antes: ubicacion
+  maxParticipants Int? // Antes: maxParticipantes
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relaciones
+  creator       User           @relation(fields: [createdBy], references: [id])
+  createdBy     Int // Antes: organizerId
+  registrations Registration[]
+
+  @@map("events")
+}
+
+model Registration {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  eventId   Int
+  createdAt DateTime @default(now())
+
+  // Relaciones
+  user  User  @relation(fields: [userId], references: [id])
+  event Event @relation(fields: [eventId], references: [id])
+
+  @@unique([userId, eventId])
+  @@map("registrations")
+}
+
+enum Role {
+  USER
+  ORGANIZER
+  ADMIN
+}

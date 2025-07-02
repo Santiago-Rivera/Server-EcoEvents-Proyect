@@ -1,0 +1,13 @@
+{
+  "eventoId": 10,
+  "eventoTitulo": "Limpieza de Playa",
+  "eventoFecha": "2025-06-30T10:58:00.000Z",
+  "eventoUbicacion": "manta",
+  "participante": {
+    "nombre": "María González",
+    "email": "maria.gonzalez@ejemplo.com",
+    "telefono": "+593 99 876 5432",
+    "comentarios": "¡Qué emocionante poder contribuir al cuidado del medio ambiente!",
+    "recibirNotificaciones": true
+  }
+}
