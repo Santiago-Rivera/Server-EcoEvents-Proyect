@@ -5,10 +5,6 @@ services:
     build: .
     ports:
       - "4000:4000"
-    environment:
-      - NODE_ENV=production
-      - PORT=4000
-      - DATABASE_URL=file:./dev.db
     volumes:
       # Montar volumen para persistir la base de datos SQLite
       - ./data:/app/data

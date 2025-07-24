@@ -16,9 +16,6 @@ RUN npm ci --only=production
 # Copiar el resto del código de la aplicación
 COPY . .
 
-# Generar el cliente de Prisma
-RUN npx prisma generate --schema=src/prisma/schema.prisma
-
 # Crear un usuario no root para ejecutar la aplicación (buena práctica de seguridad)
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nodeuser -u 1001
